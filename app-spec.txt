@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project_specification>
+  <project_name>Agent Harness CLI</project_name>
+
+  <overview>
+    Agent Harness CLI 是一个为长时间运行的 AI 代理生成约束文件的跨平台命令行工具。基于 Anthropic 的 "Effective Harnesses for Long-Running Agents" 和 OpenSpec 灵感打造。该工具帮助开发团队和 AI 代理在长时间开发任务中保持进度追踪、功能验证和项目文档的完整性。
+  </overview>
+
+  <technology_stack>
+    <api_keys>
+      无需外部 API 密钥
+    </api_keys>
+    <frontend>
+      N/A - 纯 CLI 工具，无前端界面
+    </frontend>
+    <backend>
+      <runtime>Node.js 18+</runtime>
+      <language>TypeScript 5.x</language>
+      <framework>Commander.js (CLI 框架)</framework>
+      <dependencies>
+        - chalk ^5.3.0 (终端着色)
+        - commander ^11.1.0 (CLI 参数解析)
+        - cross-spawn ^7.0.6 (跨平台 shell 执行)
+        - ora ^8.0.1 (loading spinner)
+      </dependencies>
+      <dev_dependencies>
+        - @types/cross-spawn ^6.0.6
+        - @types/node ^25.3.0
+        - typescript ^5.9.3
+        - vitest ^4.0.18
+      </dev_dependencies>
+    </backend>
+    <communication>
+      CLI 标准输入输出，无网络通信需求
+    </communication>
+    <port>
+      N/A - CLI 工具，无网络服务端口
+    </port>
+  </technology_stack>
+
+  <prerequisites>
+    <environment_setup>
+      - Node.js 18.0.0 或更高版本
+      - npm 或 yarn 包管理器
+      - TypeScript 编译器 (tsc)
+      - Git 版本控制系统
+    </environment_setup>
+  </prerequisites>
+
+  <core_features>
+    <CLI_Commands>
+      - init 命令: 初始化新的 agent harness 项目，生成模板文件和脚本
+      - scan 命令: 扫描现有项目并生成 project.md 文档
+      - 全局选项支持: --force, --output-dir, --verbose, --version, --help
+    </CLI_Commands>
+
+    <File_Generation>
+      - feature_list.json: 功能列表定义，包含 ID、类别、描述、优先级、验证步骤
+      - progress.md: 进度追踪文档，记录会话历史和功能完成状态
+      - project.md: 项目文档，包含技术栈和架构信息
+      - init.sh: Unix/Linux 系统初始化脚本
+      - init.bat: Windows 批处理初始化脚本
+      - init.ps1: Windows PowerShell 初始化脚本
+    </File_Generation>
+
+    <Project_Scanning>
+      - 自动检测项目根目录文件 (package.json, tsconfig.json, pyproject.toml, Cargo.toml 等)
+      - 自动检测源代码目录 (src, lib, app, packages 等)
+      - 自动检测配置文件 (.eslintrc, vitest.config.ts, docker-compose.yml 等)
+      - 自动识别项目类型 (npm, pip, cargo, go, maven, gradle, composer, ruby)
+    </Project_Scanning>
+
+    <Tech_Stack_Detection>
+      - 前端框架: React, Vue, Angular, Svelte
+      - 后端框架: Express, Fastify, NestJS, Koa, Hapi
+      - 全栈框架: Next.js, Nuxt, Remix, Astro
+      - 运行时: Node.js, Deno, Bun
+      - 开发工具: ESLint, Prettier, Vitest, Jest, Cypress, Playwright
+      - 编程语言: TypeScript, JavaScript, Python, Rust, Go, Java, C++, Ruby, PHP
+    </Tech_Stack_Detection>
+
+    <Logging_and_User_Experience>
+      - 彩色终端输出 (使用 chalk)
+      - Loading spinner (使用 ora)
+      - 详细的错误信息提示
+      - 支持 verbose 模式查看调试信息
+    </Logging_and_User_Experience>
+  </core_features>
+
+  <database_schema>
+    <description>
+      本项目为 CLI 工具，不涉及数据库。所有数据以文件系统形式存储 (JSON、Markdown 文件)。
+    </description>
+    <entities>
+      N/A - 无数据库需求
+    </entities>
+    <links>
+      N/A
+    </links>
+  </database_schema>
+
+  <data_layer>
+    <description>
+      所有数据操作均为文件系统读写，无外部数据库依赖。
+    </description>
+
+    <file_operations>
+      <feature_list>
+        - 读取/写入 feature_list.json
+        - Feature 接口定义: id, category, description, source, priority, steps, passes
+      </feature_list>
+      <progress_tracking>
+        - 读取/写入 progress.md
+        - ProgressConfig 接口: projectTitle, sessions, currentSessionId, completedFeatures, pendingFeatures
+      </progress_tracking>
+      <project_metadata>
+        - 读取项目目录结构
+        - 生成 project.md 文档
+        - ProjectMetadata 接口: rootFiles, sourceDirs, configFiles, projectType
+      </project_metadata>
+    </file_operations>
+  </data_layer>
+
+  <cli_interface>
+    <main_structure>
+      agent-harness [global-options] <command> [command-options]
+    </main_structure>
+
+    <commands>
+      <init>
+        name: init
+        description: 初始化新的 agent harness 项目
+        options:
+          - -n, --project-name <name>: 项目名称 (默认: my-agent-project)
+          - -d, --description <text>: 项目描述 (默认: Agent harness project)
+        examples:
+          - agent-harness init
+          - agent-harness init -n my-app -o ./output
+          - agent-harness init --force
+      </init>
+
+      <scan>
+        name: scan
+        description: 扫描现有项目并生成 project.md 文档
+        options:
+          - -p, --path <directory>: 要扫描的目录 (默认: 当前工作目录)
+        examples:
+          - agent-harness scan
+          - agent-harness scan --path ./my-project
+          - agent-harness scan -o ./docs
+      </scan>
+    </commands>
+
+    <global_options>
+      - -f, --force: 强制覆盖已存在的文件
+      - -o, --output-dir <directory>: 输出目录 (默认: .agent-harness)
+      - -v, --verbose: 显示详细调试信息
+      - -V, --version: 显示版本号
+      - -h, --help: 显示帮助信息
+    </global_options>
+  </cli_interface>
+
+  <output_files>
+    <feature_list_json>
+      {
+        "id": 1,
+        "category": "setup",
+        "description": "Project has valid package.json",
+        "source": "docs/orchestrator-design-phases.md",
+        "priority": "p0",
+        "steps": ["Check package.json exists", "Validate JSON syntax", "Verify required fields"],
+        "passes": false
+      }
+    </feature_list_json>
+
+    <progress_md>
+      # Progress
+
+      ## Session History
+      | Date | Session | Changes |
+      |------|---------|---------|
+      | - | - | - |
+
+      ## Current Status
+      - Active Session: -
+      - Last Updated: -
+
+      ## Completed Features
+      - None yet
+
+      ## Pending Features
+      - All features pending
+    </progress_md>
+
+    <project_md>
+      # Project: {project_name}
+
+      Project scanned from {path}
+
+      ## Tech Stack
+      - Language: {detected_languages}
+      - Framework: {detected_frameworks}
+      - Tools: {detected_tools}
+
+      ## Architecture
+      [To be documented]
+
+      ## Commands
+      | Command | Description |
+      |---------|-------------|
+      | npm install | Install dependencies |
+      | npm run dev | Start development server |
+
+      ## Constraints
+      - [To be documented]
+    </project_md>
+  </output_files>
+
+  <design_system>
+    <color_palette>
+      - 蓝色 (chalk.blue): 信息提示 ℹ
+      - 绿色 (chalk.green): 成功提示 ✓
+      - 红色 (chalk.red): 错误提示 ✗
+      - 黄色 (chalk.yellow): 警告提示 ⚠
+    </color_palette>
+
+    <typography>
+      - 控制台输出使用等宽字体
+      - 时间戳格式: HH:MM:SS
+    </typography>
+
+    <output_format>
+      - JSON: feature_list.json 使用 2 空格缩进
+      - Markdown: 所有 .md 文件使用标准 Markdown 格式
+      - Shell 脚本: 支持 bash, bat, powershell 格式
+    </output_format>
+  </design_system>
+
+  <key_interactions>
+    <initialization_flow>
+      1. 用户执行 agent-harness init 命令
+      2. 工具创建输出目录 (默认 .agent-harness)
+      3. 生成 feature_list.json (功能列表)
+      4. 生成 progress.md (进度追踪)
+      5. 扫描项目生成 project.md
+      6. 生成跨平台初始化脚本 (init.sh, init.bat, init.ps1)
+      7. 输出完成信息
+    </initialization_flow>
+
+    <scan_flow>
+      1. 用户执行 agent-harness scan 命令
+      2. 工具扫描指定目录
+      3. 检测项目类型和根目录文件
+      4. 识别源代码目录结构
+      5. 分析 package.json 依赖检测技术栈
+      6. 扫描文件扩展名识别编程语言
+      7. 生成 project.md 文档
+      8. 输出完成信息
+    </scan_flow>
+  </key_interactions>
+
+  <implementation_steps>
+    <step number="1">
+      <title>项目初始化与基础结构</title>
+      <tasks>
+        - 创建 package.json 和 tsconfig.json
+        - 配置项目依赖 (commander, chalk, cross-spawn, ora)
+        - 设置开发依赖 (typescript, vitest, @types/node)
+        - 创建目录结构 (src/generators, src/scanner, src/utils, templates)
+      </tasks>
+    </step>
+
+    <step number="2">
+      <title>CLI 入口与命令定义</title>
+      <tasks>
+        - 实现 Commander.js 程序结构
+        - 定义全局选项 (--force, --output-dir, --verbose, --version, --help)
+        - 实现 init 命令及其选项
+        - 实现 scan 命令及其选项
+        - 添加版本信息
+      </tasks>
+    </step>
+
+    <step number="3">
+      <title>日志与错误处理</title>
+      <tasks>
+        - 实现 logger 工具 (info, success, error, warn)
+        - 集成 chalk 终端着色
+        - 集成 ora loading spinner
+        - 添加全局错误处理
+      </tasks>
+    </step>
+
+    <step number="4">
+      <title>文件生成器实现</title>
+      <tasks>
+        - 实现 featureList 生成器
+        - 实现 progress 生成器
+        - 实现 writer 工具 (writeFile, readFile, copyFile, ensureDir)
+        - 支持模板变量替换 ({{variableName}} 语法)
+      </tasks>
+    </step>
+
+    <step number="5">
+      <title>项目扫描器实现</title>
+      <tasks>
+        - 实现 scanner 扫描根目录文件
+        - 实现 techStack 检测框架和语言
+        - 实现 projectGenerator 生成 project.md
+        - 添加目录遍历和文件过滤逻辑
+      </tasks>
+    </step>
+
+    <step number="6">
+      <title>初始化脚本模板</title>
+      <tasks>
+        - 创建 init.sh (Unix/Linux)
+        - 创建 init.bat (Windows 批处理)
+        - 创建 init.ps1 (Windows PowerShell)
+        - 实现 npm install, npm run build, npm test 命令
+      </tasks>
+    </step>
+
+    <step number="7">
+      <title>测试与构建配置</title>
+      <tasks>
+        - 配置 vitest 测试框架
+        - 编写单元测试
+        - 配置 tsc 编译输出 (dist 目录)
+        - 添加 npm scripts (build, dev, test, lint, format)
+      </tasks>
+    </step>
+
+    <step number="8">
+      <title>文档完善</title>
+      <tasks>
+        - 编写 README.md
+        - 添加使用示例
+        - 完善错误处理和边界情况
+      </tasks>
+    </step>
+  </implementation_steps>
+
+  <success_criteria>
+    <functionality>
+      - CLI 命令正确响应所有选项
+      - init 命令成功生成所有约束文件
+      - scan 命令正确检测技术栈
+      - feature_list.json 格式正确
+      - progress.md 格式正确
+      - project.md 包含准确的技术栈信息
+      - 三种初始化脚本均可执行
+    </functionality>
+
+    <user_experience>
+      - 彩色终端输出提升可读性
+      - Loading spinner 提供视觉反馈
+      - 错误信息清晰明确
+      - verbose 模式提供详细调试信息
+      - 帮助信息完整且易于理解
+    </user_experience>
+
+    <technical_quality>
+      - TypeScript 类型安全，无 any 类型
+      - 完整的单元测试覆盖
+      - 代码符合 ESLint 规范
+      - 代码格式化 (Prettier)
+      - 编译无错误无警告
+    </technical_quality>
+
+    <cross_platform>
+      - Windows (cmd, PowerShell) 支持
+      - macOS/Linux (bash) 支持
+      - 跨平台文件路径处理
+      - 跨平台 shell 命令执行
+    </cross_platform>
+  </success_criteria>
+</project_specification>
