@@ -147,7 +147,41 @@ agent-harness scan --path ./my-project
 
 # 输出到指定目录
 agent-harness scan -o ./docs
+### setup 命令
+
+交互式配置 agent harness，帮助用户初始化项目文件并安装 AI 助手技能。
+
+```bash
+agent-harness setup
 ```
+
+**交互式流程：**
+
+1. 选择要创建的文件（AGENTS.md、coding_prompt.md）
+2. 选择要安装技能的 AI 助手
+3. 确认是否覆盖已存在的文件
+4. 创建文件并安装技能
+
+**示例：**
+
+```bash
+# 启动交互式设置
+agent-harness setup
+```
+
+**创建的文件：**
+
+- `AGENTS.md` - Agent 配置文件
+- `.agent-harness/coding_prompt.md` - 编码提示模板
+
+**支持的 AI 助手：**
+
+- OpenCode
+- Claude Desktop
+- Cursor
+- Qwen Code
+
+> 注意：此命令为交互式命令，会引导用户完成设置流程。
 
 ## 项目结构
 
