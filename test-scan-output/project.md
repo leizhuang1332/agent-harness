@@ -1,6 +1,6 @@
 # Project: agent-harness
 
-Project scanned from D:\TraeProject\long-running-kit
+Project scanned from D:\TraeProject\agent-harness
 
 ## Tech Stack
 
