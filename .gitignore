@@ -41,3 +41,7 @@ coverage/
 .cache/
 
 .vscode/
+
+.agent-harness/
+
+.sisyphus/

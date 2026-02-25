@@ -4,10 +4,16 @@
  */
 
 export interface Feature {
+  /** Feature ID (unique identifier, starts from 1) */
+  id: number;
   /** Feature category (e.g., 'setup', 'testing', 'documentation') */
   category: string;
   /** Human-readable description of the feature */
   description: string;
+  /** Source document this feature was generated from */
+  source: string;
+  /** Task priority (p0 is highest, p5 is lowest) */
+  priority: 'p0' | 'p1' | 'p2' | 'p3' | 'p4' | 'p5';
   /** Steps required to validate this feature */
   steps: string[];
   /** Whether the feature validation passes */
@@ -20,44 +26,65 @@ export interface Feature {
  */
 const defaultFeatures: Feature[] = [
   {
+    id: 1,
     category: 'setup',
     description: 'Project has valid package.json',
+    source: 'docs/orchestrator-design-phases.md',
+    priority: 'p0',
     steps: ['Check package.json exists', 'Validate JSON syntax', 'Verify required fields'],
     passes: false,
   },
   {
+    id: 2,
     category: 'setup',
     description: 'Project has TypeScript configuration',
+    source: 'docs/orchestrator-design-phases.md',
+    priority: 'p0',
     steps: ['Check tsconfig.json exists', 'Validate TypeScript configuration'],
     passes: false,
   },
   {
+    id: 3,
     category: 'setup',
     description: 'Project has git repository initialized',
+    source: 'docs/orchestrator-design-phases.md',
+    priority: 'p0',
     steps: ['Check .git directory exists', 'Verify git is initialized'],
     passes: false,
   },
   {
+    id: 4,
     category: 'setup',
     description: 'Dependencies are installed',
+    source: 'docs/orchestrator-design-phases.md',
+    priority: 'p0',
     steps: ['Check node_modules directory exists', 'Verify package-lock.json or yarn.lock'],
     passes: false,
   },
   {
+    id: 5,
     category: 'setup',
     description: 'Project has entry point',
+    source: 'docs/orchestrator-design-phases.md',
+    priority: 'p0',
     steps: ['Check main entry file exists', 'Verify exports are valid'],
     passes: false,
   },
   {
+    id: 6,
     category: 'build',
     description: 'Project builds successfully',
+    source: 'docs/orchestrator-design-phases.md',
+    priority: 'p1',
     steps: ['Run build command', 'Check for compilation errors', 'Verify output directory'],
     passes: false,
   },
   {
+    id: 7,
     category: 'linting',
     description: 'Code passes linting',
+    source: 'docs/orchestrator-design-phases.md',
+    priority: 'p2',
     steps: ['Run linter', 'Check for linting errors', 'Verify code style'],
     passes: false,
   },
