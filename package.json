@@ -1,0 +1,36 @@
+{
+  "name": "agent-harness",
+  "version": "1.0.0",
+  "description": "Agent harness tool for long-running kit",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "agent-harness": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "keywords": [
+    "agent",
+    "harness",
+    "cli"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "cross-spawn": "^7.0.6",
+    "ora": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/cross-spawn": "^6.0.6",
+    "@types/node": "^25.3.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  }
+}

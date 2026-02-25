@@ -1,0 +1,68 @@
+[
+  {
+    "category": "setup",
+    "description": "Project has valid package.json",
+    "steps": [
+      "Check package.json exists",
+      "Validate JSON syntax",
+      "Verify required fields"
+    ],
+    "passes": false
+  },
+  {
+    "category": "setup",
+    "description": "Project has TypeScript configuration",
+    "steps": [
+      "Check tsconfig.json exists",
+      "Validate TypeScript configuration"
+    ],
+    "passes": false
+  },
+  {
+    "category": "setup",
+    "description": "Project has git repository initialized",
+    "steps": [
+      "Check .git directory exists",
+      "Verify git is initialized"
+    ],
+    "passes": false
+  },
+  {
+    "category": "setup",
+    "description": "Dependencies are installed",
+    "steps": [
+      "Check node_modules directory exists",
+      "Verify package-lock.json or yarn.lock"
+    ],
+    "passes": false
+  },
+  {
+    "category": "setup",
+    "description": "Project has entry point",
+    "steps": [
+      "Check main entry file exists",
+      "Verify exports are valid"
+    ],
+    "passes": false
+  },
+  {
+    "category": "build",
+    "description": "Project builds successfully",
+    "steps": [
+      "Run build command",
+      "Check for compilation errors",
+      "Verify output directory"
+    ],
+    "passes": false
+  },
+  {
+    "category": "linting",
+    "description": "Code passes linting",
+    "steps": [
+      "Run linter",
+      "Check for linting errors",
+      "Verify code style"
+    ],
+    "passes": false
+  }
+]

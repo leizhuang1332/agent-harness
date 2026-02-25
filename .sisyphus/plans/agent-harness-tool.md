@@ -124,7 +124,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
 
 ## TODOs
 
-- [ ] 1. Initialize TypeScript CLI project structure
+- [x] 1. Initialize TypeScript CLI project structure
 
   **What to do**:
   - Create project directory structure: src/, bin/, templates/
@@ -153,7 +153,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] Directory structure created
   - [ ] tsconfig.json valid
 
-- [ ] 2. Set up package.json with dependencies
+- [x] 2. Set up package.json with dependencies
 
   **What to do**:
   - Add commander as dependency
@@ -180,7 +180,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] package.json with all dependencies
   - [ ] npm install succeeds
 
-- [ ] 3. Create CLI entry point with commander.js
+- [x] 3. Create CLI entry point with commander.js
 
   **What to do**:
   - Create src/index.ts as main entry
@@ -210,7 +210,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] `npx agent-harness --version` works
   - [ ] `npx agent-harness --help` shows commands
 
-- [ ] 4. Implement cross-platform utilities
+- [x] 4. Implement cross-platform utilities
 
   **What to do**:
   - Create src/utils/platform.ts for OS detection
@@ -239,7 +239,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] OS detection returns correct platform
   - [ ] Path utilities work on Windows/Unix
 
-- [ ] 5. Add logging and error handling
+- [x] 5. Add logging and error handling
 
   **What to do**:
   - Create src/utils/logger.ts with chalk formatting
@@ -265,7 +265,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] Colored output works
   - [ ] Errors show helpful messages
 
-- [ ] 6. Implement feature_list.json generator
+- [x] 6. Implement feature_list.json generator
 
   **What to do**:
   - Create src/generators/featureList.ts
@@ -294,7 +294,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] Generates valid JSON
   - [ ] All features have passes: false
 
-- [ ] 7. Implement progress.md generator
+- [x] 7. Implement progress.md generator
 
   **What to do**:
   - Create src/generators/progress.ts
@@ -324,7 +324,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] Generates valid markdown
   - [ ] Contains all required sections
 
-- [ ] 8. Implement project.md generator
+- [x] 8. Implement project.md generator
 
   **What to do**:
   - Create src/generators/project.ts
@@ -355,7 +355,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] Generates valid markdown
   - [ ] Template structure is clear
 
-- [ ] 9. Create init.sh template (Unix)
+- [x] 9. Create init.sh template (Unix)
 
   **What to do**:
   - Create templates/init.sh
@@ -387,7 +387,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] Valid bash script syntax
   - [ ] Works on macOS and Linux
 
-- [ ] 10. Create init.bat template (Windows)
+- [x] 10. Create init.bat template (Windows)
 
   **What to do**:
   - Create templates/init.bat
@@ -413,7 +413,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] Valid batch file syntax
   - [ ] Works on Windows cmd
 
-- [ ] 11. Create init.ps1 template (Windows PowerShell)
+- [x] 11. Create init.ps1 template (Windows PowerShell)
 
   **What to do**:
   - Create templates/init.ps1
@@ -439,7 +439,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] Valid PowerShell script syntax
   - [ ] Works on Windows PowerShell 5.1+
 
-- [ ] 12. Implement file writer with templates
+- [x] 12. Implement file writer with templates
 
   **What to do**:
   - Create src/generators/writer.ts
@@ -469,7 +469,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] Creates files in correct locations
   - [ ] Handles path correctly on all platforms
 
-- [ ] 13. Implement brownfield project scanner
+- [x] 13. Implement brownfield project scanner
 
   **What to do**:
   - Create src/scanner/scanner.ts
@@ -498,7 +498,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] Scans current directory
   - [ ] Returns project metadata
 
-- [ ] 14. Add tech stack detection
+- [x] 14. Add tech stack detection
 
   **What to do**:
   - Create src/scanner/techStack.ts
@@ -528,7 +528,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] Detects common frameworks
   - [ ] Returns list of detected technologies
 
-- [ ] 15. Generate project.md from scan results
+- [x] 15. Generate project.md from scan results
 
   **What to do**:
   - Integrate scanner with project.md generator
@@ -554,7 +554,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] project.md reflects scanned data
   - [ ] Tech stack section populated
 
-- [ ] 16. Integrate all commands into main CLI
+- [x] 16. Integrate all commands into main CLI
 
   **What to do**:
   - Wire up init command to generators
@@ -580,7 +580,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] All commands work end-to-end
   - [ ] CLI responds to user input
 
-- [ ] 17. Add comprehensive CLI help
+- [x] 17. Add comprehensive CLI help
 
   **What to do**:
   - Add detailed help text for each command
@@ -606,7 +606,7 @@ Wave 3 (After Wave 2 — brownfield + integration):
   - [ ] Help text is clear and complete
   - [ ] Examples are accurate
 
-- [ ] 18. Test cross-platform compatibility
+- [x] 18. Test cross-platform compatibility
 
   **What to do**:
   - Test on Windows (cmd and PowerShell)
@@ -637,22 +637,22 @@ Wave 3 (After Wave 2 — brownfield + integration):
 
 ## Final Verification Wave
 
-- [ ] F1. **Plan Compliance Audit** — `oracle`
+- [x] F1. **Plan Compliance Audit** — `oracle`
   Read the plan end-to-end. Verify all tasks have clear implementation steps.
   Output: `Must Have [N/N] | VERDICT: APPROVE/REJECT`
 
-- [ ] F2. **Code Quality Review** — `unspecified-high`
+- [x] F2. **Code Quality Review** — `unspecified-high`
   Run `tsc --noEmit` + lint. Review for type safety and error handling.
   Output: `Build [PASS/FAIL] | Lint [PASS/FAIL] | VERDICT`
 
-- [ ] F3. **Real Manual QA** — `unspecified-high`
+- [x] F3. **Real Manual QA** — `unspecified-high`
   Execute all CLI commands:
   - `agent-harness init` in new directory
   - `agent-harness scan` in existing project
   Verify output files are correct.
   Output: `Commands [N/N] | Files [N/N] | VERDICT`
 
-- [ ] F4. **Scope Fidelity Check** — `deep`
+- [x] F4. **Scope Fidelity Check** — `deep`
   Verify everything in plan was implemented.
   Output: `Tasks [N/N compliant] | VERDICT`
 
