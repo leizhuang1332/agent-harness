@@ -1,0 +1,31 @@
+=== Task 2 Verification Results ===
+
+Date: 2026-02-25
+Task: Delete project.md generation code from init action in src/index.ts
+
+VERIFICATION CHECKLIST:
+✅ 1. generateProjectTemplate import removed (line 9)
+✅ 2. project.md generation code removed from init action (was lines 77-97)
+✅ 3. feature_list.json generation logic preserved
+✅ 4. progress.md generation logic preserved
+✅ 5. init.sh, init.bat, init.ps1 generation logic preserved
+✅ 6. scan command still generates project.md (as expected)
+✅ 7. Build passes (npm run build)
+
+GREP RESULTS:
+- grep "generateProjectTemplate" src/index.ts: No matches found
+- grep "project.md" src/index.ts: 
+  - Line 141: scan command description
+  - Lines 179-186: project.md generation in scan action only
+
+INIT ACTION NOW GENERATES:
+1. feature_list.json
+2. progress.md
+3. init.sh
+4. init.bat
+5. init.ps1
+
+INIT ACTION NO LONGER GENERATES:
+- project.md (removed)
+
+CONCLUSION: Task completed successfully.

@@ -75,7 +75,7 @@ agent-harness scan --output-dir ./output
 | 选项 | 简写 | 描述 | 默认值 |
 |------|------|------|--------|
 | `--force` | `-f` | 强制覆盖已存在的文件 | false |
-| `--output-dir` | `-o` | 输出目录 | "." |
+| `--output-dir` | `-o` | 输出目录 | `.agent-harness` |
 | `--verbose` | `-v` | 显示详细调试信息 | false |
 | `--version` | `-V` | 显示版本号 | - |
 | `--help` | `-h` | 显示帮助信息 | - |
@@ -113,7 +113,15 @@ agent-harness init -n "my-project" -d "My AI Agent Project" -o ./output --verbos
 - `init.sh` - Unix 初始化脚本
 - `init.bat` - Windows 批处理脚本
 - `init.ps1` - Windows PowerShell 脚本
+**生成的文件：**
 
+- `.agent-harness/feature_list.json` - 功能列表
+- `.agent-harness/progress.md` - 进度追踪
+- `.agent-harness/script/init.sh` - Unix 初始化脚本
+- `.agent-harness/script/init.bat` - Windows 批处理脚本
+- `.agent-harness/script/init.ps1` - Windows PowerShell 脚本
+
+> 注意：`project.md` 由 `scan` 命令生成
 ### scan 命令
 
 扫描现有项目并生成 project.md。

@@ -1,0 +1,29 @@
+# Task 3: Scan Call Verification
+
+## Task Description
+在 init action 的成功日志 "Project initialization complete!" 之前添加 scan 调用逻辑。
+
+## Verification Command
+```bash
+grep -n "scanProject\|generateProjectMarkdown" src/index.ts
+```
+
+## Results
+Found 6 matches:
+
+| Line | Content |
+|------|---------|
+| 10 | import { scanProject } from './scanner/scanner.js'; |
+| 12 | import { generateProjectMarkdown, generateProjectInfo } from './scanner/projectGenerator.js'; |
+| 142 | await scanProject(resolvedPath); (init action - NEW) |
+| 148 | const projectMarkdown = await generateProjectMarkdown(resolvedPath); (init action - NEW) |
+| 188 | const metadata = await scanProject(resolvedPath); (scan command) |
+| 204 | const projectMarkdown = await generateProjectMarkdown(resolvedPath); (scan command) |
+
+## Verification Status
+✅ PASSED
+
+- init action 中成功添加了 scanProject 调用（第142行）
+- init action 中成功添加了 generateProjectMarkdown 调用（第148行）
+- 使用 try/catch 包装，失败时只输出警告不影响 init 成功状态
+- 构建成功（npm run build）

@@ -6,7 +6,6 @@ import { fileURLToPath } from 'url';
 
 import { generateFeatureList, featuresToJson } from './generators/featureList.js';
 import { generateProgressTemplate } from './generators/progress.js';
-import { generateProjectTemplate } from './generators/project.js';
 import { writeFile, ensureDir, copyFile } from './generators/writer.js';
 import { scanProject } from './scanner/scanner.js';
 import { detectTechStack } from './scanner/techStack.js';
@@ -32,7 +31,7 @@ A CLI tool to initialize and scan agent projects with feature tracking,
 progress monitoring, and project documentation generation.`)
   .version('1.0.0')
   .option('-f, --force', 'Force overwrite existing files without prompting', false)
-  .option('-o, --output-dir <directory>', 'Output directory for generated files (default: current directory)', '.')
+  .option('-o, --output-dir <directory>', 'Output directory for generated files (default: .agent-harness directory)', '.agent-harness')
   .option('-v, --verbose', 'Enable verbose debug output for troubleshooting', false);
 
 program
@@ -54,6 +53,8 @@ program
       // Ensure output directory exists
       await ensureDir(outputDir, { verbose });
 
+      // Ensure script subdirectory exists
+      await ensureDir(path.join(outputDir, 'script'), { verbose });
       // Generate feature_list.json
       const features = generateFeatureList();
       const featureJson = featuresToJson(features);
@@ -73,28 +74,6 @@ program
       const progressPath = path.join(outputDir, 'progress.md');
       await writeFile(progressPath, progressContent, { force, verbose });
       logger.success('Created progress.md');
-
-      // Generate project.md
-      const projectInfo = {
-        name: options.projectName,
-        description: options.description,
-        techStack: ['TypeScript', 'Node.js'],
-        commands: {
-          'npm install': 'Install dependencies',
-          'npm run build': 'Build the project',
-          'npm run dev': 'Start development server',
-          'npm test': 'Run tests',
-        },
-        constraints: [
-          'All features must be implemented as per feature_list.json',
-          'Code must pass linting and type checking',
-          'Tests must pass before PR can be merged',
-        ],
-      };
-      const projectContent = generateProjectTemplate(projectInfo);
-      const projectPath = path.join(outputDir, 'project.md');
-      await writeFile(projectPath, projectContent, { force, verbose });
-      logger.success('Created project.md');
 
       // Generate init scripts
       const initShContent = `#!/bin/bash
@@ -143,14 +122,41 @@ npm test
 Write-Host "Setup complete!" -ForegroundColor Green
 `;
 
-      await writeFile(path.join(outputDir, 'init.sh'), initShContent, { force, verbose });
-      logger.success('Created init.sh');
+      await writeFile(path.join(outputDir, 'script', 'init.sh'), initShContent, { force, verbose });
+      logger.success('Created script/init.sh');
+      await writeFile(path.join(outputDir, 'script', 'init.bat'), initBatContent, { force, verbose });
+      logger.success('Created script/init.bat');
+      await writeFile(path.join(outputDir, 'script', 'init.ps1'), initPs1Content, { force, verbose });
+      logger.success('Created script/init.ps1');
+      // Scan project and generate project.md
+      try {
+        const scanPath = options.path || process.cwd();
+        const resolvedPath = path.resolve(scanPath);
 
-      await writeFile(path.join(outputDir, 'init.bat'), initBatContent, { force, verbose });
-      logger.success('Created init.bat');
+        if (verbose) {
+          logger.info(`Scanning project at: ${resolvedPath}`);
+        }
 
-      await writeFile(path.join(outputDir, 'init.ps1'), initPs1Content, { force, verbose });
-      logger.success('Created init.ps1');
+        // Scan project
+        await scanProject(resolvedPath);
+
+        // Detect tech stack
+        await detectTechStack(resolvedPath);
+
+        // Generate project markdown
+        const projectMarkdown = await generateProjectMarkdown(resolvedPath);
+
+        // Ensure output directory exists
+        await ensureDir(outputDir, { verbose });
+
+        // Write project.md
+        const projectPath = path.join(outputDir, 'project.md');
+        await writeFile(projectPath, projectMarkdown, { force, verbose });
+        logger.success('Created project.md');
+      } catch (scanError) {
+        const message = scanError instanceof Error ? scanError.message : 'Unknown error';
+        logger.warn(`Failed to scan project: ${message}`);
+      }
 
       logger.success('Project initialization complete!');
     } catch (error) {
