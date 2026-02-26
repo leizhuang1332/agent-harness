@@ -40,7 +40,7 @@ agent-harness setup
 ```
 
 交互式流程：
-1. 选择要创建的文件（AGENTS.md、coding_prompt.md）
+1. 选择要创建的文件（AGENTS.md）
 2. 选择要安装技能的 AI 助手
 3. 自动创建文件并安装技能
 
@@ -63,7 +63,6 @@ agent-harness/
 │       └── SKILL.md
 ├── templates/                       # 模板文件
 │   ├── AGENTS.md                   # Agent 配置指南
-│   ├── coding_prompt.md             # 编码工作流
 │   ├── init.sh                     # Unix 初始化脚本
 │   ├── init.bat                    # Windows 批处理
 │   └── init.ps1                    # PowerShell 脚本
@@ -108,7 +107,6 @@ use skill(name="app-spec")
 ### 3. 模板文件
 
 - **AGENTS.md** - AI Agent 工作指南，包含全局语言规范（强制简体中文）
-- **coding_prompt.md** - 编码 Agent 工作流：
   1. 获取项目概要（读取 app_spec.txt, feature_list.json）
   2. 选择一个功能实现
   3. 编写代码和单元测试
@@ -126,15 +124,12 @@ agent-harness setup
 
 **功能：**
 - 创建 AGENTS.md（项目根目录）
-- 创建 .agent-harness/coding_prompt.md
 - 安装技能到选定的 AI 助手
 
 **生成的目录结构：**
 ```
 project/
-├── AGENTS.md
-└── .agent-harness/
-    └── coding_prompt.md
+└── AGENTS.md
 ```
 
 ## 技术栈

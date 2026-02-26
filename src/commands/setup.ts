@@ -6,7 +6,6 @@ import * as fs from 'fs';
 import {
   checkAgentsMdExists,
   copyAgentsMdTemplate,
-  copyCodingPromptTemplate,
   FileOperationError
 } from '../utils/fileUtils.js';
 import { getInstalledAssistants, type AIAssistant } from '../utils/detectAssistants.js';
@@ -34,10 +33,6 @@ export function createSetupCommand(): Command {
           choices: [
             {
               name: 'AGENTS.md',
-              checked: true
-            },
-            {
-              name: 'coding_prompt.md',
               checked: true
             }
           ],
@@ -125,20 +120,6 @@ export function createSetupCommand(): Command {
               }
             } else {
               fileSpinner.text = 'AGENTS.md already exists (skipped)';
-            }
-          } else if (file === 'coding_prompt.md') {
-            const destPath = path.join(process.cwd(), '.agent-harness', 'coding_prompt.md');
-            const exists = fs.existsSync(destPath);
-            
-            if (shouldOverwrite || !exists) {
-              const success = copyCodingPromptTemplate();
-              if (success) {
-                fileSpinner.text = 'Created .agent-harness/coding_prompt.md';
-              } else if (!shouldOverwrite) {
-                fileSpinner.text = 'coding_prompt.md already exists (skipped)';
-              }
-            } else {
-              fileSpinner.text = 'coding_prompt.md already exists (skipped)';
             }
           }
         }
