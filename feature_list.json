@@ -51,7 +51,7 @@
       "2: 更新 installToQwenCode() 的 JSDoc 注释",
       "3: 说明新的项目级别安装路径格式"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": 5,
