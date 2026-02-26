@@ -38,7 +38,7 @@
       "2: 将 homeDir = getHomeDir() 改为 projectDir = process.cwd()",
       "3: 更新 paths 对象中的所有路径为项目级别: .opencode/skills/, .cursor/skills/, .qwen/skills/"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": 4,

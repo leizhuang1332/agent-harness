@@ -304,11 +304,11 @@ export function installToClaudeDesktop(): Promise<InstallResult> {
 
 /**
  * Install skills to Cursor
- * Target: ~/.cursor/skills/
+ * Target: .cursor/skills/ (project-level directory)
  */
 export function installToCursor(): InstallResult {
-  const homeDir = getHomeDir();
-  const targetDir = path.join(homeDir, '.cursor', 'skills');
+  const projectDir = process.cwd();
+  const targetDir = path.join(projectDir, '.cursor', 'skills');
   
   const skills = getSkillsList();
   if (skills.length === 0) {
@@ -339,7 +339,6 @@ export function installToCursor(): InstallResult {
     path: targetDir
   };
 }
-
 /**
  * Install skills to Qwen Code
  * Target: .qwen/skills/ (project-level directory)
@@ -412,14 +411,15 @@ export async function installSkills(targets: string[]): Promise<InstallResult[]>
 
 /**
  * Get installation info for a specific assistant
+ * Returns project-level skill directory path
  */
 export function getAssistantSkillsPath(assistant: string): string | null {
-  const homeDir = getHomeDir();
+  const projectDir = process.cwd();
   
   const paths: Record<string, string> = {
-    'opencode': path.join(homeDir, '.config', 'opencode', 'skills'),
-    'cursor': path.join(homeDir, '.cursor', 'skills'),
-    'qwen-code': path.join(homeDir, '.config', 'qwen-code', 'skills')
+    'opencode': path.join(projectDir, '.opencode', 'skills'),
+    'cursor': path.join(projectDir, '.cursor', 'skills'),
+    'qwen-code': path.join(projectDir, '.qwen', 'skills')
   };
   
   return paths[assistant] || null;
