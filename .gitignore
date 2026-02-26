@@ -46,3 +46,7 @@ MT|.agent-harness/
 !.agent-harness/dev-workflow.md
 
 .sisyphus/
+
+.opencode/
+
+.agent-harness/

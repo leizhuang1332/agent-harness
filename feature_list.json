@@ -1,70 +1,68 @@
 [
   {
     "id": 1,
-    "category": "Refactor",
-    "description": "修改 installToOpenCode() 函数，将技能安装路径从全局 (~/.config/opencode/skills/) 改为项目级别 (.opencode/skills/)",
-    "source": ".sisyphus/plans/skill-install-path-change.md",
+    "category": "Bug Fix",
+    "description": "修复 installSkills.test.ts 中路径分隔符测试失败问题",
+    "source": "测试驱动修复",
     "priority": "p0",
     "steps": [
-      "1: 修改 src/utils/installSkills.ts 中的 installToOpenCode() 函数",
-      "2: 将 homeDir = getHomeDir() 改为 projectDir = process.cwd()",
-      "3: 将 targetDir 路径从 path.join(homeDir, '.config', 'opencode', 'skills') 改为 path.join(projectDir, '.opencode', 'skills')",
-      "4: 更新函数注释说明新的安装路径"
+      "1: 分析测试失败原因 - process.cwd mock 返回值导致 path.join 返回正斜杠",
+      "2: 修复测试中的 mock 方式或代码实现",
+      "3: 运行测试验证修复"
     ],
     "passes": true
   },
   {
     "id": 2,
-    "category": "Refactor",
-    "description": "修改 installToQwenCode() 函数，将技能安装路径从全局 (~/.config/qwen-code/skills/) 改为项目级别 (.qwen/skills/)",
-    "source": ".sisyphus/plans/skill-install-path-change.md",
-    "priority": "p0",
+    "category": "Testing",
+    "description": "为 fileUtils.ts 添加单元测试",
+    "source": "功能完整性",
+    "priority": "p1",
     "steps": [
-      "1: 修改 src/utils/installSkills.ts 中的 installToQwenCode() 函数",
-      "2: 将 homeDir = getHomeDir() 改为 projectDir = process.cwd()",
-      "3: 将 targetDir 路径从 path.join(homeDir, '.config', 'qwen-code', 'skills') 改为 path.join(projectDir, '.qwen', 'skills')",
-      "4: 更新函数注释说明新的安装路径"
+      "1: 分析 fileUtils.ts 的导出函数",
+      "2: 编写覆盖主要功能的测试用例",
+      "3: 运行测试验证覆盖"
     ],
-    "passes": true
+    "passes": false
   },
   {
     "id": 3,
-    "category": "Refactor",
-    "description": "更新 getAssistantSkillsPath() 函数中的路径映射表，将全局路径改为项目级别路径",
-    "source": ".sisyphus/plans/skill-install-path-change.md",
+    "category": "Testing",
+    "description": "为 detectAssistants.ts 添加单元测试",
+    "source": "功能完整性",
     "priority": "p1",
     "steps": [
-      "1: 修改 src/utils/installSkills.ts 中的 getAssistantSkillsPath() 函数",
-      "2: 将 homeDir = getHomeDir() 改为 projectDir = process.cwd()",
-      "3: 更新 paths 对象中的所有路径为项目级别: .opencode/skills/, .cursor/skills/, .qwen/skills/"
+      "1: 分析 detectAssistants.ts 的导出函数",
+      "2: 编写覆盖主要功能的测试用例",
+      "3: 运行测试验证覆盖"
     ],
-    "passes": true
+    "passes": false
   },
   {
     "id": 4,
-    "category": "Documentation",
-    "description": "更新相关函数的注释说明，明确指出技能安装到项目级别目录",
-    "source": ".sisyphus/plans/skill-install-path-change.md",
-    "priority": "p2",
+    "category": "Feature",
+    "description": "实现 setup 命令的交互式流程",
+    "source": "功能实现",
+    "priority": "p0",
     "steps": [
-      "1: 更新 installToOpenCode() 的 JSDoc 注释",
-      "2: 更新 installToQwenCode() 的 JSDoc 注释",
-      "3: 说明新的项目级别安装路径格式"
+      "1: 完善 setup.ts 中的交互式向导",
+      "2: 添加 AI 助手选择功能",
+      "3: 添加技能安装确认流程",
+      "4: 测试交互式流程"
     ],
-    "passes": true
+    "passes": false
   },
   {
     "id": 5,
-    "category": "Testing",
-    "description": "验证修改后的技能安装功能是否正常工作",
-    "source": ".sisyphus/plans/skill-install-path-change.md",
-    "priority": "p0",
+    "category": "Documentation",
+    "description": "更新项目 README 文档",
+    "source": "文档完整性",
+    "priority": "p2",
     "steps": [
-      "1: 运行 npm run build 构建项目",
-      "2: 运行 npm test 执行测试",
-      "3: 手动测试：在测试目录运行 agent-harness setup",
-      "4: 验证 .opencode/skills/ 和 .qwen/skills/ 目录是否正确创建"
+      "1: 添加项目使用示例",
+      "2: 添加开发指南",
+      "3: 添加故障排查指南"
     ],
-    "passes": true
+    "passes": false
   }
 ]
