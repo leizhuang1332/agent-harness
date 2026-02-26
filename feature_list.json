@@ -65,6 +65,6 @@
       "3: 手动测试：在测试目录运行 agent-harness setup",
       "4: 验证 .opencode/skills/ 和 .qwen/skills/ 目录是否正确创建"
     ],
-    "passes": false
+    "passes": true
   }
 ]
