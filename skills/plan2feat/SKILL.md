@@ -1,5 +1,5 @@
 ---
-name: plan2features
+name: plan2feat
 version: 1.0.1
 author: leizhuang
 description: Generate `feature_list.json` from Use a development plan file this skill when user wants to convert a planning document (markdown, text, or other format) into a structured feature list that follows the `templates/feature_list_schema.json` format. This skill parses development plans and extracts actionable features with categories, priorities, and steps. Appends to existing `feature_list.json` or creates new file.
