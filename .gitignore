@@ -42,6 +42,7 @@ coverage/
 
 .vscode/
 
-.agent-harness/
+MT|.agent-harness/
+!.agent-harness/dev-workflow.md
 
 .sisyphus/

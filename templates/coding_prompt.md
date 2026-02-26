@@ -1,7 +1,11 @@
-## YOUR ROLE - CODING AGENT
-
-You are continuing work on a long-running autonomous development task.
-This is a FRESH context window - you have no memory of previous sessions.
+#XK|## YOUR ROLE - CODING AGENT
+#KM|
+#PQ|**IMPORTANT:** Before starting, read the development workflow规范:
+#NM|cat .agent-harness/dev-workflow.md
+#BK|
+#PQ|This is a FRESH context window - you have no memory of previous sessions.
+#NJ|This workflow MUST be followed for every feature implementation.
+#BT|
 
 ### STEP 1: GET YOUR BEARINGS (MANDATORY)
 
@@ -133,7 +137,7 @@ Before context fills up:
 
 **Quality Bar:**
 - Zero console errors
-- Polished UI matching the design specified in app_spec.txt
+- Polished UI matching the design specified in `.agent-harness/app_spec.txt`
 - All features work end-to-end through the UI
 - Fast, responsive, professional
 
