@@ -25,7 +25,7 @@
       "3: 将 targetDir 路径从 path.join(homeDir, '.config', 'qwen-code', 'skills') 改为 path.join(projectDir, '.qwen', 'skills')",
       "4: 更新函数注释说明新的安装路径"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": 3,

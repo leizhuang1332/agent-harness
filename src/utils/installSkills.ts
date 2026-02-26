@@ -342,11 +342,11 @@ export function installToCursor(): InstallResult {
 
 /**
  * Install skills to Qwen Code
- * Target: ~/.config/qwen-code/skills/
+ * Target: .qwen/skills/ (project-level directory)
  */
 export function installToQwenCode(): InstallResult {
-  const homeDir = getHomeDir();
-  const targetDir = path.join(homeDir, '.config', 'qwen-code', 'skills');
+  const projectDir = process.cwd();
+  const targetDir = path.join(projectDir, '.qwen', 'skills');
   
   const skills = getSkillsList();
   if (skills.length === 0) {
