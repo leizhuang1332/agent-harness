@@ -187,11 +187,11 @@ function copySkillDir(skillName: string, targetDir: string): boolean {
 
 /**
  * Install skills to OpenCode
- * Target: ~/.config/opencode/skills/
+ * Target: .opencode/skills/ (project-level directory)
  */
 export function installToOpenCode(): InstallResult {
-  const homeDir = getHomeDir();
-  const targetDir = path.join(homeDir, '.config', 'opencode', 'skills');
+  const projectDir = process.cwd();
+  const targetDir = path.join(projectDir, '.opencode', 'skills');
   
   const skills = getSkillsList();
   if (skills.length === 0) {

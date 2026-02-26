@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "category": "Refactor",
+    "description": "修改 installToOpenCode() 函数，将技能安装路径从全局 (~/.config/opencode/skills/) 改为项目级别 (.opencode/skills/)",
+    "source": ".sisyphus/plans/skill-install-path-change.md",
+    "priority": "p0",
+    "steps": [
+      "1: 修改 src/utils/installSkills.ts 中的 installToOpenCode() 函数",
+      "2: 将 homeDir = getHomeDir() 改为 projectDir = process.cwd()",
+      "3: 将 targetDir 路径从 path.join(homeDir, '.config', 'opencode', 'skills') 改为 path.join(projectDir, '.opencode', 'skills')",
+      "4: 更新函数注释说明新的安装路径"
+    ],
+    "passes": true
+  },
+  {
+    "id": 2,
+    "category": "Refactor",
+    "description": "修改 installToQwenCode() 函数，将技能安装路径从全局 (~/.config/qwen-code/skills/) 改为项目级别 (.qwen/skills/)",
+    "source": ".sisyphus/plans/skill-install-path-change.md",
+    "priority": "p0",
+    "steps": [
+      "1: 修改 src/utils/installSkills.ts 中的 installToQwenCode() 函数",
+      "2: 将 homeDir = getHomeDir() 改为 projectDir = process.cwd()",
+      "3: 将 targetDir 路径从 path.join(homeDir, '.config', 'qwen-code', 'skills') 改为 path.join(projectDir, '.qwen', 'skills')",
+      "4: 更新函数注释说明新的安装路径"
+    ],
+    "passes": false
+  },
+  {
+    "id": 3,
+    "category": "Refactor",
+    "description": "更新 getAssistantSkillsPath() 函数中的路径映射表，将全局路径改为项目级别路径",
+    "source": ".sisyphus/plans/skill-install-path-change.md",
+    "priority": "p1",
+    "steps": [
+      "1: 修改 src/utils/installSkills.ts 中的 getAssistantSkillsPath() 函数",
+      "2: 将 homeDir = getHomeDir() 改为 projectDir = process.cwd()",
+      "3: 更新 paths 对象中的所有路径为项目级别: .opencode/skills/, .cursor/skills/, .qwen/skills/"
+    ],
+    "passes": false
+  },
+  {
+    "id": 4,
+    "category": "Documentation",
+    "description": "更新相关函数的注释说明，明确指出技能安装到项目级别目录",
+    "source": ".sisyphus/plans/skill-install-path-change.md",
+    "priority": "p2",
+    "steps": [
+      "1: 更新 installToOpenCode() 的 JSDoc 注释",
+      "2: 更新 installToQwenCode() 的 JSDoc 注释",
+      "3: 说明新的项目级别安装路径格式"
+    ],
+    "passes": false
+  },
+  {
+    "id": 5,
+    "category": "Testing",
+    "description": "验证修改后的技能安装功能是否正常工作",
+    "source": ".sisyphus/plans/skill-install-path-change.md",
+    "priority": "p0",
+    "steps": [
+      "1: 运行 npm run build 构建项目",
+      "2: 运行 npm test 执行测试",
+      "3: 手动测试：在测试目录运行 agent-harness setup",
+      "4: 验证 .opencode/skills/ 和 .qwen/skills/ 目录是否正确创建"
+    ],
+    "passes": false
+  }
+]
