@@ -76,7 +76,7 @@ export function createSetupCommand(): Command {
         selectedAssistants = (assistantAnswers as any).assistants as string[];
       } else {
         console.log('\nNo supported AI assistants found on this system.');
-        console.log('Supported: OpenCode, Claude Desktop, Cursor, Qwen Code');
+        console.log('Supported: OpenCode, Qwen Code');
       }
 
       // Step 3: Check for existing files and ask about overwrite
@@ -137,8 +137,6 @@ export function createSetupCommand(): Command {
           // Map assistant names to installSkills target names
           const targetMap: Record<string, string> = {
             'OpenCode': 'opencode',
-            'Claude Desktop': 'claude-desktop',
-            'Cursor': 'cursor',
             'Qwen Code': 'qwen-code'
           };
           

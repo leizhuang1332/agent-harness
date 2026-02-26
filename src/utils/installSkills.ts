@@ -1,7 +1,5 @@
 import * as fs from 'fs';
-import * as os from 'os';
 import * as path from 'path';
-import archiver from 'archiver';
 
 interface InstallResult {
   success: boolean;
@@ -50,13 +48,6 @@ function getFriendlyErrorMessage(error: Error, operation: string): string {
   }
   
   return `An error occurred while ${operation}. Please try again.`;
-}
-
-/**
- * Get the home directory path
- */
-function getHomeDir(): string {
-  return os.homedir();
 }
 
 /**
@@ -224,122 +215,6 @@ export function installToOpenCode(): InstallResult {
 }
 
 /**
- * Install skills to Claude Desktop (as .zip file)
- * Creates a .zip file that can be imported into Claude Desktop
- */
-export function installToClaudeDesktop(): Promise<InstallResult> {
-  return new Promise((resolve) => {
-    const homeDir = getHomeDir();
-    const platform = process.platform;
-    
-    let claudePath: string;
-    if (platform === 'darwin') {
-      claudePath = path.join(homeDir, 'Library', 'Application Support', 'Claude');
-    } else if (platform === 'win32') {
-      claudePath = path.join(homeDir, 'AppData', 'Roaming', 'Claude');
-    } else {
-      claudePath = path.join(homeDir, '.config', 'Claude');
-    }
-    
-    const skills = getSkillsList();
-    if (skills.length === 0) {
-      resolve({ success: false, message: 'No skills found in skills/ directory' });
-      return;
-    }
-    
-    // Create Claude directory if it doesn't exist
-    if (!fs.existsSync(claudePath)) {
-      try {
-        fs.mkdirSync(claudePath, { recursive: true });
-      } catch (error) {
-        resolve({
-          success: false,
-          message: getFriendlyErrorMessage(error as Error, 'creating Claude settings directory')
-        });
-        return;
-      }
-    }
-    
-    // Create a zip file for Claude Desktop
-    const zipFileName = 'claude-skills.zip';
-    const zipPath = path.join(claudePath, zipFileName);
-    
-    try {
-      const output = fs.createWriteStream(zipPath);
-      const archive = archiver('zip', { zlib: { level: 9 } });
-      
-      output.on('close', () => {
-        resolve({
-          success: true,
-          message: `Created skills.zip for Claude Desktop (${archive.pointer()} bytes)`,
-          path: zipPath
-        });
-      });
-      
-      archive.on('error', (err: Error) => {
-        resolve({
-          success: false,
-          message: getFriendlyErrorMessage(err, 'creating skills archive')
-        });
-      });
-      
-      archive.pipe(output);
-      
-      // Add each skill to the archive
-      const skillsDir = getSkillsSourceDir();
-      for (const skill of skills) {
-        const skillPath = path.join(skillsDir, skill);
-        archive.directory(skillPath, skill);
-      }
-      
-      archive.finalize();
-    } catch (error) {
-      resolve({
-        success: false,
-        message: getFriendlyErrorMessage(error as Error, 'creating skills zip file')
-      });
-    }
-  });
-}
-
-/**
- * Install skills to Cursor
- * Target: .cursor/skills/ (project-level directory)
- */
-export function installToCursor(): InstallResult {
-  const projectDir = process.cwd();
-  const targetDir = path.join(projectDir, '.cursor', 'skills');
-  
-  const skills = getSkillsList();
-  if (skills.length === 0) {
-    return { success: false, message: 'No skills found in skills/ directory' };
-  }
-  
-  let installedCount = 0;
-  let lastError: Error | null = null;
-  
-  for (const skill of skills) {
-    try {
-      if (copySkillDir(skill, targetDir)) {
-        installedCount++;
-      }
-    } catch (error) {
-      lastError = error as Error;
-      // Continue with other skills even if one fails
-    }
-  }
-  
-  if (installedCount === 0 && lastError) {
-    return { success: false, message: lastError.message };
-  }
-  
-  return {
-    success: true,
-    message: `Installed ${installedCount} skill(s) to Cursor`,
-    path: targetDir
-  };
-}
-/**
  * Install skills to Qwen Code
  * Target: .qwen/skills/ (project-level directory)
  */
@@ -379,7 +254,7 @@ export function installToQwenCode(): InstallResult {
 
 /**
  * Install skills to multiple AI assistants
- * @param targets Array of target assistant names ('opencode', 'claude-desktop', 'cursor', 'qwen-code')
+ * @param targets Array of target assistant names ('opencode', 'qwen-code')
  */
 export async function installSkills(targets: string[]): Promise<InstallResult[]> {
   const results: InstallResult[] = [];
@@ -388,12 +263,6 @@ export async function installSkills(targets: string[]): Promise<InstallResult[]>
     switch (target) {
       case 'opencode':
         results.push(installToOpenCode());
-        break;
-      case 'claude-desktop':
-        results.push(await installToClaudeDesktop());
-        break;
-      case 'cursor':
-        results.push(installToCursor());
         break;
       case 'qwen-code':
         results.push(installToQwenCode());
@@ -418,7 +287,6 @@ export function getAssistantSkillsPath(assistant: string): string | null {
   
   const paths: Record<string, string> = {
     'opencode': path.join(projectDir, '.opencode', 'skills'),
-    'cursor': path.join(projectDir, '.cursor', 'skills'),
     'qwen-code': path.join(projectDir, '.qwen', 'skills')
   };
   

@@ -7,6 +7,7 @@
 ## 特性
 
 - 🚀 **跨平台支持** - Windows、macOS、Linux 原生支持
+- ⚙️ **多 AI 助手集成** - 支持 OpenCode、Qwen Code
 - ⚙️ **多 AI 助手集成** - 支持 OpenCode、Claude Desktop、Cursor、Qwen Code
 - 🎯 **自定义技能安装** - 自动安装项目技能到 AI 助手
 - 📦 **交互式配置** - 向导式引导完成项目初始化
@@ -80,8 +81,6 @@ agent-harness/
 | 助手 | 检测方式 |
 |------|----------|
 | OpenCode | `~/.config/opencode/` 目录 |
-| Claude Desktop | `~/Library/Application Support/Claude/` (macOS) |
-| Cursor | `~/.cursor/` 目录 |
 | Qwen Code | `qwen-code --version` 命令 |
 
 ### 2. 技能系统
@@ -142,6 +141,7 @@ project/
 - **inquirer** - 交互式提示
 - **ora** - 加载动画
 - **chalk** - 终端着色
+- **cross-spawn** - 跨平台进程
 - **archiver** - ZIP 压缩
 - **cross-spawn** - 跨平台进程
 

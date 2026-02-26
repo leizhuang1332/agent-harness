@@ -50,53 +50,6 @@ export function checkOpenCodeInstalled(): AIAssistant {
 }
 
 /**
- * Check if Claude Desktop is installed
- * Checks: ~/Library/Application Support/Claude/ or ~/.config/claude/
- */
-export function checkClaudeDesktopInstalled(): AIAssistant {
-  const homeDir = getHomeDir();
-  const platform = process.platform;
-  
-  let claudePath: string;
-  
-  if (platform === 'darwin') {
-    // macOS
-    claudePath = path.join(homeDir, 'Library', 'Application Support', 'Claude');
-  } else if (platform === 'win32') {
-    // Windows
-    claudePath = path.join(homeDir, 'AppData', 'Roaming', 'Claude');
-  } else {
-    // Linux/other
-    claudePath = path.join(homeDir, '.config', 'Claude');
-  }
-  
-  const installed = fs.existsSync(claudePath);
-  
-  return {
-    name: 'Claude Desktop',
-    installed,
-    path: installed ? claudePath : undefined
-  };
-}
-
-/**
- * Check if Cursor is installed
- * Checks: ~/.cursor/ directory
- */
-export function checkCursorInstalled(): AIAssistant {
-  const homeDir = getHomeDir();
-  const cursorPath = path.join(homeDir, '.cursor');
-  
-  const installed = fs.existsSync(cursorPath);
-  
-  return {
-    name: 'Cursor',
-    installed,
-    path: installed ? cursorPath : undefined
-  };
-}
-
-/**
  * Check if Qwen Code is installed
  * Checks: runs qwen-code --version command
  */
@@ -133,8 +86,6 @@ export function checkQwenCodeInstalled(): AIAssistant {
 export function getInstalledAssistants(): AIAssistant[] {
   const assistants: AIAssistant[] = [
     checkOpenCodeInstalled(),
-    checkClaudeDesktopInstalled(),
-    checkCursorInstalled(),
     checkQwenCodeInstalled()
   ];
   
