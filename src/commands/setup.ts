@@ -52,28 +52,21 @@ export function createSetupCommand(): Command {
       const availableAssistants = installedAssistants
         .filter((assistant: AIAssistant) => assistant.installed)
         .map((assistant: AIAssistant) => ({
-          name: assistant.name,
-          checked: true
+          name: assistant.name
         }));
 
-      let selectedAssistants: string[] = [];
+      let selectedAssistants: string = '';
 
       if (availableAssistants.length > 0) {
         const assistantAnswers = await (inquirer.prompt as any)([
           {
-            type: 'checkbox',
+            type: 'list',
             name: 'assistants',
             message: 'Which AI assistants do you want to install skills to?',
-            choices: availableAssistants,
-            validate: (answer: string[]) => {
-              if (answer.length === 0) {
-                return 'You must select at least one AI assistant.';
-              }
-              return true;
-            }
+            choices: availableAssistants
           }
         ]);
-        selectedAssistants = (assistantAnswers as any).assistants as string[];
+        selectedAssistants = (assistantAnswers as any).assistants as string;
       } else {
         console.log('\nNo supported AI assistants found on this system.');
         console.log('Supported: OpenCode, Qwen Code');
@@ -101,7 +94,7 @@ export function createSetupCommand(): Command {
       // Step 4: Create the files
       console.log('\n--- Setup Summary ---');
       console.log(`Files to create: ${selectedFiles.join(', ')}`);
-      console.log(`AI Assistants: ${selectedAssistants.join(', ') || 'None'}`);
+      console.log(`AI Assistants: ${selectedAssistants || 'None'}`);
       console.log(`Overwrite existing: ${shouldOverwrite ? 'Yes' : 'No'}`);
       console.log('--------------------\n');
 
@@ -130,7 +123,7 @@ export function createSetupCommand(): Command {
       }
 
       // Step 5: Install skills to AI assistants
-      if (selectedAssistants.length > 0) {
+      if (selectedAssistants) {
         const skillsSpinner = ora('Installing skills to AI assistants...').start();
         
         try {
@@ -140,9 +133,7 @@ export function createSetupCommand(): Command {
             'Qwen Code': 'qwen-code'
           };
           
-          const targets = selectedAssistants
-            .map(name => targetMap[name])
-            .filter(Boolean) as string[];
+          const targets = [targetMap[selectedAssistants]].filter(Boolean) as string[];
           
           const results = await installSkills(targets);
           
