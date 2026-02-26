@@ -15,13 +15,13 @@ pwd
 ls -la
 
 # 3. Read the project specification to understand what you're building
-cat app_spec.txt
+cat .agent-harness/app_spec.txt
 
 # 4. Read the feature list to see all work
 cat feature_list.json | head -50
 
-# 5. Read progress notes from previous sessions
-cat progress.txt
+# 5. Read progress notes from previous sessions, If it does not exist, skip this step
+cat .agent-harness/progress.txt
 
 # 6. Check recent git history
 git log --oneline -20
@@ -30,7 +30,7 @@ git log --oneline -20
 cat feature_list.json | grep '"passes": false' | wc -l
 ```
 
-Understanding the `app_spec.txt` is critical - it contains the full requirements
+Understanding the `.agent-harness/app_spec.txt` is critical - it contains the full requirements
 for the application you're building.
 
 ### STEP 2: CHOOSE ONE FEATURE TO IMPLEMENT
@@ -104,12 +104,13 @@ git commit -m "Implement [feature name] - verified end-to-end
 
 ### STEP 7: UPDATE PROGRESS NOTES
 
-Update `progress.txt` with:
+Update `.agent-harness/progress.txt` with:
 - What you accomplished this session
 - Which test(s) you completed
 - Any issues discovered or fixed
 - What should be worked on next
 - Current completion status (e.g., "45/200 tests passing")
+- If the file `.agent-harness/progress.txt` does not exist, then create it
 
 ### STEP 8: END SESSION CLEANLY
 

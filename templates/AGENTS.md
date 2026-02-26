@@ -6,14 +6,14 @@ Guidelines for AI agents working in this repository.
 
 **先决条件**：
 
-If the app-spec.txt file does not exist, it must be created first; otherwise, no further operations can be performed: 
+If the `.agent-harness/app-spec.txt` file does not exist, it must be created first; otherwise, no further operations can be performed: 
 ```
-use skill(name="app_spec") reading project generates an "app-spec.txt" file for the current project.
+use skill(name="app_spec") reading project generates an .agent-harness/app-spec.txt file for the current project.
 ```
 ---
 
 # WORKFLOW
-Always open `@/coding_prompt.md` when the request:
+Always open `.agent-harness/coding_prompt.md` when the request:
 read coding_prompt.md，Understand your WORKFLOW and follow the steps precisely.
 
  # 全局语言规范
