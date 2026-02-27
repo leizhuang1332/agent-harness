@@ -89,7 +89,7 @@ export function createAgentHarnessDir(): boolean {
  * @throws FileOperationError if copy fails
  */
 export function copyAgentsMdTemplate(): boolean {
-  const sourcePath = path.join(process.cwd(), 'templates', 'AGENTS.md');
+  const sourcePath = path.join(__dirname, '..', 'templates', 'AGENTS.md');
   const destPath = path.join(process.cwd(), 'AGENTS.md');
   
   // Don't overwrite existing file

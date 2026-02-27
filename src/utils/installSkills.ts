@@ -54,7 +54,7 @@ function getFriendlyErrorMessage(error: Error, operation: string): string {
  * Get the skills source directory
  */
 function getSkillsSourceDir(): string {
-  return path.join(process.cwd(), 'skills');
+  return path.join(__dirname, '..', 'skills');
 }
 
 /**

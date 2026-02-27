@@ -8,7 +8,7 @@
     "agent-harness": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && node scripts/copy-assets.js",
     "dev": "tsc --watch",
     "test": "vitest run",
     "test:watch": "vitest",
