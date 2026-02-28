@@ -149,3 +149,13 @@ export function copyAgentsMdTemplate(): boolean {
 - 仅修改 `src/utils/fileUtils.ts` 两个函数
 - 不影响 setup.ts 中的调用逻辑（函数签名未变）
 - 不影响其他模块
+
+---
+
+## 执行任务
+
+- [x] 1. 修改 `checkAgentsMdExists()` 函数 - 更改路径到 `.agent-harness/AGENTS.md`
+- [x] 2. 修改 `copyAgentsMdTemplate()` 函数 - 更改路径并添加 `createAgentHarnessDir()` 调用
+- [x] 3. 验证修改 - 运行 build 和 test
+- [ ] 2. 修改 `copyAgentsMdTemplate()` 函数 - 更改路径并添加 `createAgentHarnessDir()` 调用
+- [ ] 3. 验证修改 - 运行 build 和 test

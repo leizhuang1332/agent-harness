@@ -55,7 +55,7 @@ function getFriendlyErrorMessage(error: Error, operation: string): string {
  * Check if AGENTS.md exists in the current directory
  */
 export function checkAgentsMdExists(): boolean {
-  const agentsMdPath = path.join(process.cwd(), 'AGENTS.md');
+  const agentsMdPath = path.join(process.cwd(), '.agent-harness', 'AGENTS.md');
   return fs.existsSync(agentsMdPath);
 }
 
@@ -95,8 +95,11 @@ export function createAgentHarnessDir(): boolean {
  */
 export function copyAgentsMdTemplate(): boolean {
   const sourcePath = path.join(__dirname, '..', 'templates', 'AGENTS.md');
-  const destPath = path.join(process.cwd(), 'AGENTS.md');
+  const destPath = path.join(process.cwd(), '.agent-harness', 'AGENTS.md');
   
+  // Create .agent-harness directory if it doesn't exist
+  createAgentHarnessDir();
+
   // Don't overwrite existing file
   if (fs.existsSync(destPath)) {
     return false;
