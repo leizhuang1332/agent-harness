@@ -10,6 +10,7 @@ import {
 } from '../utils/fileUtils.js';
 import { getInstalledAssistants, type AIAssistant } from '../utils/detectAssistants.js';
 import { installSkills, SkillInstallationError } from '../utils/installSkills.js';
+import { installCommands, CommandInstallationError } from '../utils/installCommands.js';
 
 /**
  * Setup command - Configures agent harness for the current project
@@ -34,6 +35,9 @@ export function createSetupCommand(): Command {
             {
               name: 'AGENTS.md',
               checked: true
+            },
+            {
+              name: 'Commands'
             }
           ],
           validate: (answer: string[]) => {
@@ -163,6 +167,47 @@ export function createSetupCommand(): Command {
         }
       }
 
+      // Step 6: Install commands to AI assistants
+      if (selectedAssistants) {
+        const commandsSpinner = ora('Installing commands to AI assistants...').start();
+        
+        try {
+          // Map assistant names to installCommands target names (same as skills)
+          const targetMap: Record<string, string> = {
+            'OpenCode': 'opencode',
+            'Qwen Code': 'qwen-code'
+          };
+          
+          const targets = [targetMap[selectedAssistants]].filter(Boolean) as string[];
+          
+          const results = await installCommands(targets);
+          
+          const successCount = results.filter(r => r.success).length;
+          const failCount = results.filter(r => !r.success).length;
+          
+          if (failCount === 0) {
+            commandsSpinner.succeed(`Installed commands to ${successCount} AI assistant(s)`);
+            for (const result of results) {
+              if (result.success && result.path) {
+                console.log(`  → ${result.message} (${result.path})`);
+              }
+            }
+          } else {
+            commandsSpinner.warn(`Installed to ${successCount}, failed for ${failCount} AI assistant(s)`);
+            for (const result of results) {
+              if (result.success) {
+                console.log(`  ✓ ${result.message}`);
+              } else {
+                console.log(`  ✗ ${result.message}`);
+              }
+            }
+          }
+        } catch (commandsError) {
+          commandsSpinner.fail('Failed to install commands');
+          throw commandsError;
+        }
+      }
+
       console.log('\n✓ Setup complete!');
 
     } catch (error) {
@@ -172,6 +217,9 @@ export function createSetupCommand(): Command {
         console.error(`   ${error.message}`);
       } else if (error instanceof SkillInstallationError) {
         console.error('\n❌ Skill Installation Error:');
+        console.error(`   ${error.message}`);
+      } else if (error instanceof CommandInstallationError) {
+        console.error('\n❌ Command Installation Error:');
         console.error(`   ${error.message}`);
       } else if ((error as any).isTtyError) {
         console.error('\n❌ Error: Prompt could not be rendered in this environment.');
