@@ -59,7 +59,7 @@ function getFriendlyErrorMessage(error: Error, operation: string): string {
  * Get the skills source directory
  */
 function getSkillsSourceDir(): string {
-  return path.join(__dirname, '..', 'skills');
+  return path.join(__dirname, '..', 'templates', 'skills');
 }
 
 /**

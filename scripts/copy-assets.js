@@ -7,8 +7,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.join(__dirname, '..');
 
 const assets = [
-  { src: 'src/templates', dest: 'dist/templates' },
-  { src: 'src/skills', dest: 'dist/skills' }
+  { src: 'src/templates', dest: 'dist/templates' }
 ];
 
 function copyDirRecursive(source, target) {
