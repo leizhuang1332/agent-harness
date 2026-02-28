@@ -179,6 +179,7 @@ export function createSetupCommand(): Command {
         console.log('\n⚠️ Setup cancelled by user.');
       } else {
         // Generic error - show friendly message without exposing system details
+        console.error(error)
         console.error('\n❌ An unexpected error occurred during setup.');
         console.error('   Please try again. If the problem persists, please report the issue.');
       }
