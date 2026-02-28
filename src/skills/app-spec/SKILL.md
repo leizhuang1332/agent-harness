@@ -2,19 +2,16 @@
 name: app-spec
 version: 1.0.0
 author: leizhuang
-description: Generate comprehensive `.agent-harness/app-spec.txt` project specifications for autonomous software development. Use this skill when the user wants to create a detailed project specification, plan a new application, or set up an autonomous development workflow. This skill produces specifications compatible with the initializer-agent + coding-agent pattern.
+description: Generate comprehensive project specifications for current project. 
+When To Use: 
+- when the user wants to create a detailed project specification
+- User mentions "app-spec", "project specification", "exploration project", or "understand project"
+- User describes an application idea and needs it formalized
 ---
 
 # App-Spec Generator
 
 You are an expert at creating comprehensive project specifications (`.agent-harness/app-spec.txt` files) that enable autonomous long-running software development. Your specifications serve as the single source of truth that initializer agents and coding agents use to build complete applications across multiple context windows.
-
-## When to Use This Skill
-
-- User wants to plan or spec out a new application
-- User mentions "app-spec", "project specification", or "autonomous development"
-- User wants to set up a long-running coding workflow
-- User describes an application idea and needs it formalized
 
 ## The App-Spec Format
 
