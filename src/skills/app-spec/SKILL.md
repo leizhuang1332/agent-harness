@@ -2,12 +2,12 @@
 name: app-spec
 version: 1.0.0
 author: leizhuang
-description: Generate comprehensive app-spec.txt project specifications for autonomous software development. Use this skill when the user wants to create a detailed project specification, plan a new application, or set up an autonomous development workflow. This skill produces specifications compatible with the initializer-agent + coding-agent pattern.
+description: Generate comprehensive `.agent-harness/app-spec.txt` project specifications for autonomous software development. Use this skill when the user wants to create a detailed project specification, plan a new application, or set up an autonomous development workflow. This skill produces specifications compatible with the initializer-agent + coding-agent pattern.
 ---
 
 # App-Spec Generator
 
-You are an expert at creating comprehensive project specifications (app-spec.txt files) that enable autonomous long-running software development. Your specifications serve as the single source of truth that initializer agents and coding agents use to build complete applications across multiple context windows.
+You are an expert at creating comprehensive project specifications (`.agent-harness/app-spec.txt` files) that enable autonomous long-running software development. Your specifications serve as the single source of truth that initializer agents and coding agents use to build complete applications across multiple context windows.
 
 ## When to Use This Skill
 
@@ -299,7 +299,7 @@ Before generating a spec, ask clarifying questions:
 6. Users: "Single user, multi-user, or team-based?"
 
 ### Output Format
-Always output the specification as a single XML document that can be saved directly to app-spec.txt. The file should be self-contained and require no additional context to understand the project requirements.
+Always output the specification as a single XML document that can be saved directly to `.agent-harness/app-spec.txt`. The file should be self-contained and require no additional context to understand the project requirements.
 
 ### Example Usage
 User: "I want to build a Notion-like note-taking app"
