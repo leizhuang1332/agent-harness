@@ -72,9 +72,10 @@ export function getCommandsList(): string[] {
   }
   
   try {
+    // Return .md files directly (not directories)
     return fs.readdirSync(commandsDir).filter(item => {
       const itemPath = path.join(commandsDir, item);
-      return fs.statSync(itemPath).isDirectory();
+      return fs.statSync(itemPath).isFile() && item.endsWith('.md');
     });
   } catch (error) {
     throw new CommandInstallationError(
@@ -131,14 +132,11 @@ function copyDirRecursive(source: string, target: string): void {
   }
 }
 
-/**
- * Copy a command directory to a target location
- */
 function copyCommandDir(commandName: string, targetDir: string): boolean {
-  const sourceDir = path.join(getCommandsSourceDir(), commandName);
+  const sourcePath = path.join(getCommandsSourceDir(), commandName);
   const targetPath = path.join(targetDir, commandName);
   
-  if (!fs.existsSync(sourceDir)) {
+  if (!fs.existsSync(sourcePath)) {
     return false;
   }
   
@@ -155,22 +153,22 @@ function copyCommandDir(commandName: string, targetDir: string): boolean {
     }
   }
   
-  // Remove existing command if it exists
+  // Remove existing command file if it exists
   if (fs.existsSync(targetPath)) {
     try {
       fs.rmSync(targetPath, { recursive: true });
     } catch (error) {
       throw new CommandInstallationError(
-        getFriendlyErrorMessage(error as Error, 'removing existing command directory'),
+        getFriendlyErrorMessage(error as Error, 'removing existing command file'),
         (error as any)?.code,
         'create_dir'
       );
     }
   }
   
-  // Copy the command directory
+  // Copy the command file directly
   try {
-    copyDirRecursive(sourceDir, targetPath);
+    fs.copyFileSync(sourcePath, targetPath);
     return true;
   } catch (error) {
     throw new CommandInstallationError(
