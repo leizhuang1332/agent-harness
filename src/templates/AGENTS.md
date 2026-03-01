@@ -14,6 +14,8 @@ Always read `.agent-harness/app-spec.txt` to understand the project specificatio
 
 ```bash
 use skill(name="app_spec")
+# or
+use_skill [skill_name=app-spec]
 ```
 # 工作流程
 
