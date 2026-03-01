@@ -121,3 +121,36 @@ export function copyAgentsMdTemplate(): boolean {
     throw new FileOperationError(friendlyMessage, (error as any)?.code, 'copy_file');
   }
 }
+/**
+ * Copy templates/workflow.md to .agent-harness/workflow.md
+ * @returns True if copy was successful, false if file already exists
+ * @throws FileOperationError if copy fails
+ */
+export function copyWorkflowTemplate(): boolean {
+  const sourcePath = path.join(__dirname, '..', 'templates', 'workflow.md');
+  const destPath = path.join(process.cwd(), '.agent-harness', 'workflow.md');
+
+  // Create .agent-harness directory if it doesn't exist
+  createAgentHarnessDir();
+
+  // Don't overwrite existing file
+  if (fs.existsSync(destPath)) {
+    return false;
+  }
+
+  if (!fs.existsSync(sourcePath)) {
+    throw new FileOperationError(
+      'Template file not found. Please ensure the project is properly installed.',
+      'ENOENT',
+      'copy_file'
+    );
+  }
+
+  try {
+    fs.copyFileSync(sourcePath, destPath);
+    return true;
+  } catch (error) {
+    const friendlyMessage = getFriendlyErrorMessage(error as Error, 'copying workflow.md template');
+    throw new FileOperationError(friendlyMessage, (error as any)?.code, 'copy_file');
+  }
+}

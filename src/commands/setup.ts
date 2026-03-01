@@ -6,6 +6,7 @@ import * as fs from 'fs';
 import {
   checkAgentsMdExists,
   copyAgentsMdTemplate,
+  copyWorkflowTemplate,
   FileOperationError
 } from '../utils/fileUtils.js';
 import { getInstalledAssistants, type AIAssistant } from '../utils/detectAssistants.js';
@@ -111,6 +112,9 @@ export function createSetupCommand(): Command {
           }
         }
         fileSpinner.succeed('Files created successfully');
+
+        // Create workflow templates
+        copyWorkflowTemplate();
       } catch (fileError) {
         fileSpinner.fail('Failed to create files');
         throw fileError;
