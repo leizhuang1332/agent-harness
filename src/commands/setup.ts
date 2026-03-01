@@ -25,31 +25,21 @@ export function createSetupCommand(): Command {
 
   setupCommand.action(async () => {
     try {
-      // Step 1: Ask user which files to create
-      const fileAnswers = await (inquirer.prompt as any)([
+      // Step 1: Ask user about AGENTS.md (Commands are always installed)
+      const agentsMdAnswer = await (inquirer.prompt as any)([
         {
-          type: 'checkbox',
-          name: 'files',
-          message: 'Which files do you want to create?',
-          choices: [
-            {
-              name: 'AGENTS.md',
-              checked: true
-            },
-            {
-              name: 'Commands'
-            }
-          ],
-          validate: (answer: string[]) => {
-            if (answer.length === 0) {
-              return 'You must select at least one file.';
-            }
-            return true;
-          }
+          type: 'confirm',
+          name: 'createAgentsMd',
+          message: 'Do you want to create AGENTS.md?',
+          default: true
         }
       ]);
 
-      const selectedFiles = (fileAnswers as any).files as string[];
+      // Commands are always installed
+      const selectedFiles = ['Commands'];
+      if ((agentsMdAnswer as any).createAgentsMd) {
+        selectedFiles.push('AGENTS.md');
+      }
 
       // Step 2: Ask user which AI assistants to install skills to
       const installedAssistants = getInstalledAssistants();
