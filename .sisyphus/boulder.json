@@ -1,7 +1,9 @@
 {
-  "active_plan": "/Users/Ray/TraeProjects/agent-harness/.sisyphus/plans/setup-command-modification.md",
-  "started_at": "2026-03-01T06:08:00.000Z",
-  "session_ids": ["ses_35801576affevDMOhP2UzB8mSY"],
-  "plan_name": "setup-command-modification",
+  "active_plan": "/Users/Ray/TraeProjects/agent-harness/.sisyphus/plans/fix-command-install.md",
+  "started_at": "2026-03-01T06:51:13.148Z",
+  "session_ids": [
+    "ses_357de72ceffetPA6fT4Xbh4xZ5"
+  ],
+  "plan_name": "fix-command-install",
   "agent": "atlas"
 }
