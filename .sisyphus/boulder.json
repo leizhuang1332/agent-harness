@@ -1,9 +1,9 @@
 {
-  "active_plan": "/Users/Ray/TraeProjects/agent-harness/.sisyphus/plans/fix-command-install.md",
-  "started_at": "2026-03-01T06:51:13.148Z",
+  "active_plan": "/Users/Ray/TraeProjects/agent-harness/.sisyphus/plans/workflow-setup-feature.md",
+  "started_at": "2026-03-01T09:00:16.470Z",
   "session_ids": [
-    "ses_357de72ceffetPA6fT4Xbh4xZ5"
+    "ses_35765804cffeSWK52np1W6EpdH"
   ],
-  "plan_name": "fix-command-install",
+  "plan_name": "workflow-setup-feature",
   "agent": "atlas"
 }
