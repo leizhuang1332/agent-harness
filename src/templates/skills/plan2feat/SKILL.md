@@ -90,6 +90,10 @@ Create new feature objects with proper structure:
 - Assign sequential IDs continuing from max existing ID + 1
 - Set all passes to false initially
 - Use the plan file path as the source
+- Add steps as bullet points, prefix with numbering (e.g., "1: Set up environment")
+- Add each feature to the JSON array
+- Set passes to false
+- Test-driven development requires unit testing for each feature
 
 ### Step 5: Write to File
 
