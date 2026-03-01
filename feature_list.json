@@ -1,0 +1,55 @@
+[
+  {
+    "id": 1,
+    "category": "Core",
+    "description": "创建 installCommands.ts 模块 - 参考 installSkills.ts 实现命令安装逻辑，包括 getCommandsSourceDir、getCommandsList、copyCommandDir、installToOpenCodeCommands、installToQwenCodeCommands、installCommands 等函数",
+    "source": ".sisyphus/plans/add-commands-to-setup.md",
+    "priority": "p0",
+    "steps": [
+      "1: 创建 src/utils/installCommands.ts 文件",
+      "2: 实现 getCommandsSourceDir() 函数 - 返回 src/templates/commands/",
+      "3: 实现 getCommandsList() 函数 - 获取 commands 目录列表",
+      "4: 实现 copyCommandDir() 函数 - 复制单个 command 目录",
+      "5: 实现 installToOpenCodeCommands() - 安装到 .opencode/commands/",
+      "6: 实现 installToQwenCodeCommands() - 安装到 .qwen/commands/",
+      "7: 实现 installCommands(targets) 分发函数",
+      "8: 添加错误处理 - 权限检查、路径不存在处理"
+    ],
+    "passes": true
+  },
+  {
+    "id": 2,
+    "category": "Core",
+    "description": "修改 setup.ts 增加 command 选项 - 在文件选择列表增加 Commands 选项，并在 AI 助手选择后增加 command 安装步骤",
+    "source": ".sisyphus/plans/add-commands-to-setup.md",
+    "priority": "p0",
+    "steps": [
+      "1: 修改 src/commands/setup.ts - 在文件选择列表增加 'Commands' 选项",
+      "2: 导入 installCommands 函数和 CommandInstallationError",
+      "3: 在 AI 助手选择后增加 command 安装步骤（类似 skill 安装）",
+      "4: 更新提示文本 - 'Installing commands to AI assistants...'",
+      "5: 实现成功/失败信息显示逻辑",
+      "6: 测试覆盖已有 command 时的覆盖逻辑"
+    ],
+    "passes": true
+  },
+  {
+    "id": 3,
+    "category": "Test",
+    "description": "测试 command 安装功能 - 运行完整测试验证 OpenCode 和 Qwen 两种情况的 command 安装功能",
+    "source": ".sisyphus/plans/add-commands-to-setup.md",
+    "priority": "p1",
+    "steps": [
+      "1: 构建项目 - npm run build",
+      "2: 创建临时测试目录",
+      "3: 运行 setup 命令并选择 OpenCode + Commands",
+      "4: 验证 .opencode/commands/agent-harness-init.md 存在",
+      "5: 清理测试文件",
+      "6: 运行 setup 命令并选择 Qwen + Commands",
+      "7: 验证 .qwen/commands/agent-harness-init.md 存在",
+      "8: 清理测试文件",
+      "9: 验证与现有 skill 功能共存无冲突"
+    ],
+    "passes": false
+  }
+]

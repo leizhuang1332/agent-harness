@@ -3,7 +3,7 @@ name: app-spec
 version: 1.0.0
 author: leizhuang
 description: Generate comprehensive project specifications for current project. 
-When To Use: 
+When To Use This Skill: 
 - when the user wants to create a detailed project specification
 - User mentions "app-spec", "project specification", "exploration project", or "understand project"
 - User describes an application idea and needs it formalized

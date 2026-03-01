@@ -2,25 +2,23 @@
 name: plan2feat
 version: 1.0.1
 author: leizhuang
-description: Generate `feature_list.json` from Use a development plan file this skill when user wants to convert a planning document (markdown, text, or other format) into a structured feature list that follows the `templates/feature_list_schema.json` format. This skill parses development plans and extracts actionable features with categories, priorities, and steps. Appends to existing `feature_list.json` or creates new file.
----
-
-# Plan to Features Converter
-
-You are an expert at converting development plans into structured feature lists. Your task is to analyze a provided development plan document and append extracted features to a `feature_list.json` file that follows the schema defined in `templates/feature_list_schema.json`.
-
-## When to Use This Skill
-
+description: Generate `.agent-harness/feature_list.json` from Use a development plan file this skill when user wants to convert a planning document (markdown, text, or other format) into a structured feature list that follows the `templates/feature_list_schema.json` format. This skill parses development plans and extracts actionable features with categories, priorities, and steps. Appends to existing `.agent-harness/feature_list.json` or creates new file.
+When to Use This Skill:
 - User provides a development plan file and wants to add features to `feature_list.json`
 - User mentions "convert plan to features", "extract features from plan"
 - User wants to break down a project plan into actionable features
 - User needs to add features to an existing `feature_list.json`
+---
+
+# Plan to Features Converter
+
+You are an expert at converting development plans into structured feature lists. Your task is to analyze a provided development plan document and append extracted features to a `.agent-harness/feature_list.json` file that follows the schema defined in `templates/feature_list_schema.json`.
 
 ## Input Requirements
 
 The user MUST provide:
 1. **Plan file path**: Path to the development plan document (markdown, text, etc.)
-2. **Output path** (optional): Path to feature_list.json (defaults to `feature_list.json`)
+2. **Output path** (optional): Path to feature_list.json (defaults to `.agent-harness/feature_list.json`)
 
 ## The Feature List Schema
 
@@ -57,9 +55,9 @@ The output JSON must follow this structure (from `templates/feature_list_schema.
 
 ## Processing Steps
 
-### Step 1: Check Existing `feature_list.json`
+### Step 1: Check Existing `.agent-harness/feature_list.json`
 
-1. Check if `feature_list.json` exists at the output path
+1. Check if `.agent-harness/feature_list.json` exists at the output path
 2. If exists, read and parse the existing JSON array
 3. Find the maximum existing ID to continue numbering
 4. If file doesn't exist, start with empty array and ID = 1
@@ -97,7 +95,7 @@ Create new feature objects with proper structure:
 
 Write the merged feature list to:
 - User-specified output path, OR
-- `feature_list.json` (default)
+- `.agent-harness/feature_list.json` (default)
 
 **IMPORTANT**: Always APPEND to existing features, never overwrite. Merge new features with existing ones.
 
@@ -138,21 +136,21 @@ Always output a valid JSON array that:
 ## Example
 
 User provides: `docs/roadmap.md`
-Existing: `feature_list.json` with 3 features (IDs 1-3)
-Output: `feature_list.json` with 3 + N features (new IDs 4, 5, ...)
+Existing: `.agent-harness/feature_list.json` with 3 features (IDs 1-3)
+Output: `.agent-harness/feature_list.json` with 3 + N features (new IDs 4, 5, ...)
 
 ## Error Handling
 
 If the plan file cannot be read:
 1. Report the error clearly
 2. Ask user to verify the file path
-3. Do not modify existing `feature_list.json`
+3. Do not modify existing `.agent-harness/feature_list.json`
 
 If the plan is empty or cannot be parsed:
 1. Inform the user
 2. Ask for clarification on plan content
-3. Do not modify existing `feature_list.json`
+3. Do not modify existing `.agent-harness/feature_list.json`
 
-If `feature_list.json` exists but is invalid JSON:
+If `.agent-harness/feature_list.json` exists but is invalid JSON:
 1. Report the error
 2. Ask user to fix the file before adding new features
