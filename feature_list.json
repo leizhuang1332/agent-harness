@@ -51,5 +51,50 @@
       "9: 验证与现有 skill 功能共存无冲突"
     ],
     "passes": false
+  },
+  {
+    "id": 4,
+    "category": "Refactor",
+    "description": "修改 setup.ts - 默认创建 AGENTS.md，移除询问提示",
+    "source": ".agent-harness/plans/modify-setup-default-agents.md",
+    "priority": "p0",
+    "steps": [
+      "1: 删除第 28-34 行 - 移除询问是否创建 AGENTS.md 的代码块",
+      "2: 修改第 36-39 行 - 直接设置 selectedFiles = ['Commands', 'AGENTS.md']",
+      "3: 简化第 60 行 - 移除 selectedFiles.includes('AGENTS.md') && 条件检查",
+      "4: 验证 npm run build 编译通过",
+      "5: 验证 npm test 测试通过"
+    ],
+    "passes": true
+  },
+  {
+    "id": 5,
+    "category": "Test",
+    "description": "测试 setup 命令 - 验证无 AGENTS.md 时直接创建，不询问",
+    "source": ".agent-harness/plans/modify-setup-default-agents.md",
+    "priority": "p1",
+    "steps": [
+      "1: 创建临时测试目录且无 AGENTS.md 文件",
+      "2: 运行 node dist/index.js setup 并选择 AI 助手",
+      "3: 验证输出中无 Do you want to create AGENTS.md? 提示",
+      "4: 验证 AGENTS.md 文件被创建",
+      "5: 保存证据到 .agent-harness/evidence/task-1-no-prompt-create.md"
+    ],
+    "passes": false
+  },
+  {
+    "id": 6,
+    "category": "Test",
+    "description": "测试 setup 命令 - 验证 AGENTS.md 存在时询问覆盖",
+    "source": ".agent-harness/plans/modify-setup-default-agents.md",
+    "priority": "p1",
+    "steps": [
+      "1: 创建临时测试目录并创建 AGENTS.md 文件",
+      "2: 运行 node dist/index.js setup 并选择 AI 助手",
+      "3: 验证输出中出现 The following files already exist: AGENTS.md. Do you want to overwrite them? 提示",
+      "4: 输入 no 并验证文件未被覆盖",
+      "5: 保存证据到 .agent-harness/evidence/task-1-overwrite-prompt.md"
+    ],
+    "passes": false
   }
 ]

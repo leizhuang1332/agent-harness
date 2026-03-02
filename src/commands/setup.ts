@@ -26,23 +26,10 @@ export function createSetupCommand(): Command {
 
   setupCommand.action(async () => {
     try {
-      // Step 1: Ask user about AGENTS.md (Commands are always installed)
-      const agentsMdAnswer = await (inquirer.prompt as any)([
-        {
-          type: 'confirm',
-          name: 'createAgentsMd',
-          message: 'Do you want to create AGENTS.md?',
-          default: true
-        }
-      ]);
+      // AGENTS.md is always created
+      const selectedFiles = ['Commands', 'AGENTS.md'];
 
-      // Commands are always installed
-      const selectedFiles = ['Commands'];
-      if ((agentsMdAnswer as any).createAgentsMd) {
-        selectedFiles.push('AGENTS.md');
-      }
-
-      // Step 2: Ask user which AI assistants to install skills to
+      // Step 1: Ask user which AI assistants to install skills to
       const installedAssistants = getInstalledAssistants();
       const availableAssistants = installedAssistants
         .filter((assistant: AIAssistant) => assistant.installed)
@@ -67,9 +54,9 @@ export function createSetupCommand(): Command {
         console.log('Supported: OpenCode, Qwen Code');
       }
 
-      // Step 3: Check for existing files and ask about overwrite
+      // Step 2: Check for existing files and ask about overwrite
       const existingFiles: string[] = [];
-      if (selectedFiles.includes('AGENTS.md') && checkAgentsMdExists()) {
+      if (checkAgentsMdExists()) {
         existingFiles.push('AGENTS.md');
       }
 
