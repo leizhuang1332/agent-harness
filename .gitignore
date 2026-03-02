@@ -46,5 +46,6 @@ MT|.agent-harness/
 !.agent-harness/dev-workflow.md
 
 .opencode/
+.qwen/
 
 .agent-harness/
