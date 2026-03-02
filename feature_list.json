@@ -50,7 +50,7 @@
       "8: 清理测试文件",
       "9: 验证与现有 skill 功能共存无冲突"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": 4,
