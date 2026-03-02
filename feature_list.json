@@ -80,7 +80,7 @@
       "4: 验证 AGENTS.md 文件被创建",
       "5: 保存证据到 .agent-harness/evidence/task-1-no-prompt-create.md"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": 6,
@@ -95,6 +95,6 @@
       "4: 输入 no 并验证文件未被覆盖",
       "5: 保存证据到 .agent-harness/evidence/task-1-overwrite-prompt.md"
     ],
-    "passes": false
+    "passes": true
   }
 ]
